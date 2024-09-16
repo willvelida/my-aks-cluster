@@ -44,3 +44,24 @@ variable "network_contributor_role_name" {
   description = "The name of the Network Contributor role given to the user-assigned identity"
   default = "Network Contributor"
 }
+
+variable "aks_name" {
+  type = string
+  description = "The name of the deployed AKS cluster"
+}
+
+variable "aks_username" {
+  type = string
+  description = "The username for the AKS cluster"
+}
+
+variable "vm_size" {
+  type = string
+  description = "The size of the Virtual Machine"
+}
+
+variable "node_count" {
+  type = number
+  description = "The number of nodes in the AKS cluster"
+  default = 3
+}

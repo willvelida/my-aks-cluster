@@ -37,3 +37,22 @@ module "network_contributor_role" {
   role_name = var.network_contributor_role_name
   scope_id = module.resource-group.id
 }
+
+module "ssh-key" {
+  source = "./modules/ssh-key"
+  resource_group_location = module.resource-group.location
+  resource_group_id = module.resource-group.id
+}
+
+module "aks" {
+  source = "./modules/aks-cluster"
+  rg_name = module.resource-group.name
+  location = module.resource-group.location
+  tags = var.tags
+  username = var.aks_username
+  ssh_public_key = module.ssh-key.key_data
+  vm_size = var.vm_size
+  node_count = var.node_count
+  identity_ids = module.user_assigned_identity.user_assinged_identity_id
+  aks_name = var.aks_name
+}
