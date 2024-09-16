@@ -18,10 +18,6 @@ terraform {
       source  = "hashicorp/azuread"
       version = "2.30.0"
     }
-    github = {
-      source = "integrations/github"
-      version = "~> 5.0"
-    }
   }
 
   backend "azurerm" {
@@ -34,11 +30,6 @@ provider "azurerm" {
   features {}
   skip_provider_registration = true
   use_oidc = true
-}
-
-provider "github" {
-  token = var.github_token
-  owner = var.github_organization_target
 }
 
 provider "azuread" {
