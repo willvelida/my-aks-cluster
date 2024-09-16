@@ -23,15 +23,25 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "azurerm" {
+    key = "terraform.tfstate"
+    use_oidc = true
+  }
 }
 
 provider "azurerm" {
   features {}
+  skip_provider_registration = true
+  use_oidc = true
 }
 
 provider "github" {
   token = var.github_token
   owner = var.github_organization_target
+}
+
+provider "azuread" {
 }
 
 data "azurerm_client_config" "current" {}
