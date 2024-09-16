@@ -10,3 +10,8 @@ variable "tags" {
     description = "A mapping of tags to assign to the resources."
     type = map(string)
 }
+
+variable "user_assigned_identity_name" {
+  description = "The name of the user-assigned managed identity"
+  type = string
+}
