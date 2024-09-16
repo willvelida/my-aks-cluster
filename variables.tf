@@ -15,3 +15,32 @@ variable "user_assigned_identity_name" {
   description = "The name of the user-assigned managed identity"
   type = string
 }
+
+variable "acr_name" {
+  description = "The name of the Azure Container Registry"
+  type = string
+}
+
+variable "admin_enabled" {
+  description = "Enable admin user for the Azure Container Registry"
+  type = bool
+  default = false
+}
+
+variable "sku" {
+  description = "The SKU of the Azure Container Registry"
+  type = string
+  default = "Standard"
+}
+
+variable "acr_pull_role_name" {
+  type = string
+  description = "The name of the AcrPull role given to the user-assigned identity"
+  default = "AcrPull"
+}
+
+variable "network_contributor_role_name" {
+  type = string
+  description = "The name of the Network Contributor role given to the user-assigned identity"
+  default = "Network Contributor"
+}
