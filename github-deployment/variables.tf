@@ -58,3 +58,9 @@ variable "container_name" {
   description = "The name of the storage container"
   default     = "tfstate"
 }
+
+variable "contributor_role_name" {
+  type        = string
+  default     = "Contributor"
+  description = "The name of the Contributor role given to the user-assigned identity"
+}

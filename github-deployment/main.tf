@@ -1,3 +1,7 @@
+data "azurerm_subscription" "sub" {
+
+}
+
 module "tf-resource-group" {
   source   = "../modules/resource-group"
   name     = var.tf_state_rg_name
@@ -48,3 +52,9 @@ module "tfstate_role_assignment" {
   scope_id     = module.tf-state-storage.id
 }
 
+module "sub_contributor_role_assignment" {
+  source       = "../modules/role-assignment"
+  principal_id = module.gh_usi.user_assinged_identity_principal_id
+  role_name    = var.contributor_role_name
+  scope_id     = data.azurerm_subscription.sub.id
+}

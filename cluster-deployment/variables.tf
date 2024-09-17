@@ -2,15 +2,6 @@ variable "resource_group_name" {
   description = "The name of the resource group in which the resources will be created."
 }
 
-variable "identity_rg_name" {
-  description = "The name of the resource group in which the user-assigned managed identity will be created."
-}
-
-variable "gh_uai_name" {
-  description = "The name of the user-assigned managed identity that's used for GitHub Actions"
-  type        = string
-}
-
 variable "location" {
   description = "The location where the resources will be created."
 }
@@ -52,12 +43,6 @@ variable "network_contributor_role_name" {
   type        = string
   description = "The name of the Network Contributor role given to the user-assigned identity"
   default     = "Network Contributor"
-}
-
-variable "contributor_role_name" {
-  type        = string
-  default     = "Contributor"
-  description = "The name of the Contributor role given to the user-assigned identity"
 }
 
 variable "aks_name" {
