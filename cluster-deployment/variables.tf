@@ -65,3 +65,13 @@ variable "node_count" {
   description = "The number of nodes in the AKS cluster"
   default     = 3
 }
+
+variable "azure_monitor_workspace_name" {
+  type        = string
+  description = "The name of the Azure Monitor Workspace"
+}
+
+variable "grafana_name" {
+  type        = string
+  description = "The name of the Grafana resource"
+}

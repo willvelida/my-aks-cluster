@@ -44,6 +44,24 @@ module "ssh-key" {
   resource_group_id       = module.resource-group.id
 }
 
+module "azure-monitor-workspace" {
+  source   = "../modules/azure-monitor-workspace"
+  name     = var.azure_monitor_workspace_name
+  rg_name  = module.resource-group.name
+  location = module.resource-group.location
+  tags     = var.tags
+}
+
+module "managed-grafana" {
+  source       = "../modules/managed-grafana"
+  grafana_name = var.grafana_name
+  rg_name      = module.resource-group
+  location     = module.resource-group.location
+  tags         = var.tags
+  identity_id  = module.user_assigned_identity.user_assinged_identity_id
+  workspace_id = module.azure-monitor-workspace.workspace_id
+}
+
 module "aks" {
   source         = "../modules/aks-cluster"
   rg_name        = module.resource-group.name
