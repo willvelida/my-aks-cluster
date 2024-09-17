@@ -59,8 +59,8 @@ variable "container_name" {
   default     = "tfstate"
 }
 
-variable "contributor_role_name" {
+variable "owner_role_name" {
   type        = string
-  default     = "Contributor"
-  description = "The name of the Contributor role given to the user-assigned identity"
+  default     = "Owner"
+  description = "The name of the Owner role given to the user-assigned identity"
 }
