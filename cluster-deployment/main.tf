@@ -1,12 +1,12 @@
 module "resource-group" {
-  source   = "./modules/resource-group"
+  source   = "../modules/resource-group"
   name     = var.resource_group_name
   location = var.location
   tags     = var.tags
 }
 
 module "user_assigned_identity" {
-  source   = "./modules/user-assigned-identity"
+  source   = "../modules/user-assigned-identity"
   name     = var.user_assigned_identity_name
   location = var.location
   rg_name  = module.resource-group.name
@@ -14,7 +14,7 @@ module "user_assigned_identity" {
 }
 
 module "acr" {
-  source                    = "./modules/azure-container-registry"
+  source                    = "../modules/azure-container-registry"
   name                      = var.acr_name
   location                  = var.location
   rg_name                   = module.resource-group.name
@@ -25,27 +25,27 @@ module "acr" {
 }
 
 module "acr_pull_role" {
-  source       = "./modules/role-assignment"
+  source       = "../modules/role-assignment"
   principal_id = module.user_assigned_identity.user_assinged_identity_principal_id
   role_name    = var.acr_pull_role_name
   scope_id     = module.acr.acr_id
 }
 
 module "network_contributor_role" {
-  source       = "./modules/role-assignment"
+  source       = "../modules/role-assignment"
   principal_id = module.user_assigned_identity.user_assinged_identity_principal_id
   role_name    = var.network_contributor_role_name
   scope_id     = module.resource-group.id
 }
 
 module "ssh-key" {
-  source                  = "./modules/ssh-key"
+  source                  = "../modules/ssh-key"
   resource_group_location = module.resource-group.location
   resource_group_id       = module.resource-group.id
 }
 
 module "aks" {
-  source         = "./modules/aks-cluster"
+  source         = "../modules/aks-cluster"
   rg_name        = module.resource-group.name
   location       = module.resource-group.location
   tags           = var.tags
