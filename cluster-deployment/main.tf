@@ -55,7 +55,7 @@ module "azure-monitor-workspace" {
 module "managed-grafana" {
   source       = "../modules/managed-grafana"
   grafana_name = var.grafana_name
-  rg_name      = module.resource-group
+  rg_name      = module.resource-group.name
   location     = module.resource-group.location
   tags         = var.tags
   identity_id  = module.user_assigned_identity.user_assinged_identity_id
