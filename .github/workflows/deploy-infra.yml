@@ -19,8 +19,9 @@ jobs:
     defaults:
       run:
         working-directory: ./cluster-deployment
-    name: Setup Terraform
+    name: Terraform Plan
     runs-on: ubuntu-latest
+    environment: dev
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
@@ -119,6 +120,7 @@ jobs:
 
   terraform-apply:
     needs: terraform-plan
+    name: Terraform Apply
     runs-on: ubuntu-latest
     environment: dev
     defaults:
