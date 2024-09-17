@@ -21,7 +21,7 @@ terraform {
   }
 
   backend "azurerm" {
-    key = "terraform.tfstate"
+    key      = "terraform.tfstate"
     use_oidc = true
   }
 }
@@ -29,7 +29,7 @@ terraform {
 provider "azurerm" {
   features {}
   skip_provider_registration = true
-  use_oidc = true
+  use_oidc                   = true
 }
 
 provider "azuread" {
