@@ -1,13 +1,13 @@
 data "azurerm_user_assigned_identity" "gh_uai" {
-  name = var.gh_uai_name
+  name                = var.gh_uai_name
   resource_group_name = var.identity_rg_name
 }
 
 module "contributor_role" {
-  source = "../modules/role-assignment"
+  source       = "../modules/role-assignment"
   principal_id = data.azurerm_user_assigned_identity.gh_uai.principal_id
-  role_name = var.contributor_role_name
-  scope_id = module.resource-group.id
+  role_name    = var.contributor_role_name
+  scope_id     = module.resource-group.id
 }
 
 module "resource-group" {

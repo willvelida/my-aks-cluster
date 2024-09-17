@@ -55,8 +55,8 @@ variable "network_contributor_role_name" {
 }
 
 variable "contributor_role_name" {
-  type = string
-  default = "Contributor"
+  type        = string
+  default     = "Contributor"
   description = "The name of the Contributor role given to the user-assigned identity"
 }
 

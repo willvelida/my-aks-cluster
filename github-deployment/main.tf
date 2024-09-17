@@ -47,3 +47,4 @@ module "tfstate_role_assignment" {
   role_name    = "Storage Blob Data Contributor"
   scope_id     = module.tf-state-storage.id
 }
+
