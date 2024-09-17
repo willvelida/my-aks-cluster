@@ -32,6 +32,10 @@ provider "azurerm" {
   use_oidc                   = true
 }
 
+provider "azapi" {
+  use_oidc = true
+}
+
 provider "azuread" {
 }
 
