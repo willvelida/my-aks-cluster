@@ -99,7 +99,7 @@ jobs:
       - name: Create String Output
         id: tf-plan-string
         run: |
-            TERRAFORM_PLAN=$(terraform show -no-color tfplan)
+            TERRAFORM_PLAN=$(terraform show -no-color main.tfplan)
             
             delimiter="$(openssl rand -hex 8)"
             echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
