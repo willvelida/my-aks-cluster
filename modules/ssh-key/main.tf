@@ -8,6 +8,9 @@ resource "azapi_resource" "ssh_public_key" {
   name = random_pet.ssh_key_name.id
   location = var.resource_group_location
   parent_id = var.resource_group_id
+  body = jsondecode({
+      properties = {}
+    })
 }
 
 resource "azapi_resource_action" "ssh_public_key_gen" {
@@ -16,4 +19,8 @@ resource "azapi_resource_action" "ssh_public_key_gen" {
     method = "POST"
     resource_id = azapi_resource.ssh_public_key.id
     response_export_values = [ "publicKey", "privateKey" ]
+    body = jsondecode({
+      properties = {}
+    })
+    depends_on = [ azapi_resource.ssh_public_key ]
 }
