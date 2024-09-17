@@ -59,7 +59,7 @@ module "managed-grafana" {
   location     = module.resource-group.location
   tags         = var.tags
   identity_id  = module.user_assigned_identity.user_assinged_identity_id
-  workspace_id = module.azure-monitor-workspace.workspace_id
+  workspace_id = module.azure-monitor-workspace.id
 }
 
 module "aks" {
