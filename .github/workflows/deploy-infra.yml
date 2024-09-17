@@ -54,7 +54,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -no-color -var-file="./tfvars/terraform.tfvars"
+        run: terraform plan -no-color -var-file="./tfvars/terraform.tfvars" -out main.tfplan
         continue-on-error: true
 
       - name: Update Pull Request
@@ -89,3 +89,31 @@ jobs:
       - name: Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
+
+      - name: Publish Terraform Plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: main.tfplan
+          path: main.tfplan
+
+      - name: Create String Output
+        id: tf-plan-string
+        run: |
+            TERRAFORM_PLAN=$(terraform show -no-color tfplan)
+            
+            delimiter="$(openssl rand -hex 8)"
+            echo "summary<<${delimiter}" >> $GITHUB_OUTPUT
+            echo "## Terraform Plan Output" >> $GITHUB_OUTPUT
+            echo "<details><summary>Click to expand</summary>" >> $GITHUB_OUTPUT
+            echo "" >> $GITHUB_OUTPUT
+            echo '```terraform' >> $GITHUB_OUTPUT
+            echo "$TERRAFORM_PLAN" >> $GITHUB_OUTPUT
+            echo '```' >> $GITHUB_OUTPUT
+            echo "</details>" >> $GITHUB_OUTPUT
+            echo "${delimiter}" >> $GITHUB_OUTPUT
+
+      - name: Publish Terraform Plan to Task Summary
+        env:
+          SUMMARY: ${{ steps.tf-plan-string.outputs.summary }}
+        run: |
+          echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
