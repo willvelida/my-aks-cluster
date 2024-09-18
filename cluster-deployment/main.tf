@@ -46,10 +46,11 @@ module "monitoring_data_reader_role" {
 }
 
 module "grafana_admin_role" {
-  source       = "../modules/role-assignment"
-  principal_id = var.azure_object_id
-  role_name    = var.grafana_admin_role_name
-  scope_id     = module.managed-grafana.id
+  source         = "../modules/role-assignment"
+  principal_id   = var.azure_object_id
+  role_name      = var.grafana_admin_role_name
+  scope_id       = module.managed-grafana.id
+  principal_type = "User"
 }
 
 module "ssh-key" {
