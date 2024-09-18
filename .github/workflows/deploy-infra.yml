@@ -57,7 +57,7 @@ jobs:
         id: plan
         run: |
           export exitcode=0
-          terraform plan -no-color -var-file="./tfvars/terraform.tfvars" -out main.tfplan || export exitcode=$?
+          terraform plan -no-color -var-file="./tfvars/terraform.tfvars" -var="azure_object_id=${{ secrets.AZURE_OBJECT_ID }}" -out main.tfplan || export exitcode=$?
 
           echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
 
@@ -72,8 +72,8 @@ jobs:
       - name: Publish Terraform Plan
         uses: actions/upload-artifact@v4
         with:
-          name: main.tfplan
-          path: main.tfplan
+          name: tfplan
+          path: ./cluster-deployment/main.tfplan
 
       - name: Update Pull Request
         uses: actions/github-script@v6
@@ -130,6 +130,22 @@ jobs:
         run: |
           echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
 
+      - name: Push Terraform Output to PR
+        if: github.ref != 'refs/heads/main'
+        uses: actions/github-script@v7
+        env:
+          SUMMARY: "${{ steps.tf-plan-string.outputs.summary }}"
+        with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+                const body = `${process.env.SUMMARY}`;
+                github.rest.issues.createComment({
+                    issue_number: context.issue.number,
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    body: body
+                })
+
   terraform-apply:
     needs: terraform-plan
     name: Terraform Apply
@@ -150,5 +166,11 @@ jobs:
         id: init
         run: terraform init -backend-config="resource_group_name=${{secrets.BACKEND_AZURE_RESOURCE_GROUP_NAME}}" -backend-config="storage_account_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_NAME}}" -backend-config="container_name=${{secrets.BACKEND_AZURE_STORAGE_ACCOUNT_CONTAINER_NAME}}"
 
+      - name: Download Terraform Plan
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: ./cluster-deployment
+
       - name: Terraform Apply
-        run: terraform apply -auto-approve -var-file="./tfvars/terraform.tfvars"
+        run: terraform apply -auto-approve "./main.tfplan"

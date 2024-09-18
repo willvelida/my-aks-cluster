@@ -22,6 +22,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
     load_balancer_sku = "standard"
   }
 
+  monitor_metrics {
+    annotations_allowed = null
+    labels_allowed = null
+  }
+
   linux_profile {
     admin_username = var.username
     ssh_key {

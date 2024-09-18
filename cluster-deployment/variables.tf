@@ -45,6 +45,18 @@ variable "network_contributor_role_name" {
   default     = "Network Contributor"
 }
 
+variable "monitoring_data_reader_role_name" {
+  type        = string
+  description = "The name of the Monitoring Data Reader role given to the user-assigned identity"
+  default     = "Monitoring Data Reader"
+}
+
+variable "grafana_admin_role_name" {
+  type        = string
+  description = "The name of the Grafana Admin role given to the user-assigned identity"
+  default     = "Grafana Admin"
+}
+
 variable "aks_name" {
   type        = string
   description = "The name of the deployed AKS cluster"
@@ -64,4 +76,19 @@ variable "node_count" {
   type        = number
   description = "The number of nodes in the AKS cluster"
   default     = 3
+}
+
+variable "azure_monitor_workspace_name" {
+  type        = string
+  description = "The name of the Azure Monitor Workspace"
+}
+
+variable "grafana_name" {
+  type        = string
+  description = "The name of the Grafana resource"
+}
+
+variable "azure_object_id" {
+  type        = string
+  description = "The Azure Object ID of the user to grant Grafana admin rights"
 }
