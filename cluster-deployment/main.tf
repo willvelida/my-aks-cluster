@@ -38,6 +38,13 @@ module "network_contributor_role" {
   scope_id     = module.resource-group.id
 }
 
+module "monitoring_data_reader_role" {
+  source       = "../modules/role-assignment"
+  principal_id = data.azurerm_client_config.current.object_id
+  role_name    = var.monitoring_data_reader_role_name
+  scope_id     = module.azure-monitor-workspace.id
+}
+
 module "ssh-key" {
   source                  = "../modules/ssh-key"
   resource_group_location = module.resource-group.location
@@ -73,4 +80,32 @@ module "aks" {
   node_count     = var.node_count
   identity_ids   = module.user_assigned_identity.user_assinged_identity_id
   aks_name       = var.aks_name
+}
+
+module "am-dce" {
+  source   = "../modules/azure-monitor-dce"
+  dce_name = substr("MSProm-${module.resource-group.location}-${var.aks_name}", 0, min(44, length("MSProm-${module.resource-group.location}-${var.aks_name}")))
+  rg_name  = module.resource-group.name
+  location = module.resource-group.location
+}
+
+module "am-dcr" {
+  source          = "../modules/azure-monitor-dcr"
+  dcr_name        = substr("MSProm-${module.resource-group.location}-${var.aks_name}", 0, min(44, length("MSProm-${module.resource-group.location}-${var.aks_name}")))
+  rg_name         = module.resource-group.name
+  location        = module.resource-group.location
+  dce_id          = module.am-dce.id
+  prometheus_id   = module.azure-monitor-workspace.id
+  prometheus_name = module.azure-monitor-workspace.name
+  dcra_name       = "dcra-dcr-prometheus-aks"
+  cluster_id      = module.aks.aks_id
+}
+
+module "rule-groups" {
+  source       = "../modules/azure-monitor-alert-prometheus-rule-group"
+  rg_name      = module.resource-group.name
+  location     = module.resource-group.location
+  cluster_id   = module.aks.aks_id
+  cluster_name = var.aks_name
+  workspace_id = module.azure-monitor-workspace.id
 }

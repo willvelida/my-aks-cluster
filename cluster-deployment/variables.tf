@@ -45,6 +45,12 @@ variable "network_contributor_role_name" {
   default     = "Network Contributor"
 }
 
+variable "monitoring_data_reader_role_name" {
+  type        = string
+  description = "The name of the Monitoring Data Reader role given to the user-assigned identity"
+  default     = "Monitoring Data Reader"
+}
+
 variable "aks_name" {
   type        = string
   description = "The name of the deployed AKS cluster"
