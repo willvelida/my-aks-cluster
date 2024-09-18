@@ -172,4 +172,4 @@ jobs:
           name: tfplan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve "./main.tfplan"
+        run: terraform apply -auto-approve "./cluster-deployment/main.tfplan"
