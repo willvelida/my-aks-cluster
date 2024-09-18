@@ -72,7 +72,7 @@ jobs:
       - name: Publish Terraform Plan
         uses: actions/upload-artifact@v4
         with:
-          name: main.tfplan
+          name: tfplan
           path: ./cluster-deployment/main.tfplan
 
       - name: Update Pull Request
@@ -169,8 +169,7 @@ jobs:
       - name: Download Terraform Plan
         uses: actions/download-artifact@v4
         with:
-          name: main.tfplan
-          path: ./cluster-deployment/main.tfplan
+          name: tfplan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve "main.tfplan"
+        run: terraform apply -auto-approve tfplan
