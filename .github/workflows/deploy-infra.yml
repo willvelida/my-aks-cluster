@@ -170,9 +170,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: tfplan
+          path: ./cluster-deployment
 
       - name: List files after Terraform Plan
         run: ls -l
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve "./cluster-deployment/main.tfplan"
+        run: terraform apply -auto-approve "./main.tfplan"
