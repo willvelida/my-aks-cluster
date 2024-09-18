@@ -40,7 +40,7 @@ module "network_contributor_role" {
 
 module "monitoring_data_reader_role" {
   source       = "../modules/role-assignment"
-  principal_id = data.azurerm_client_config.current.object_id
+  principal_id = module.managed-grafana.principal_id
   role_name    = var.monitoring_data_reader_role_name
   scope_id     = module.azure-monitor-workspace.id
 }
@@ -65,7 +65,6 @@ module "managed-grafana" {
   rg_name      = module.resource-group.name
   location     = module.resource-group.location
   tags         = var.tags
-  identity_id  = module.user_assigned_identity.user_assinged_identity_id
   workspace_id = module.azure-monitor-workspace.id
 }
 

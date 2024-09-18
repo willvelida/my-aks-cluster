@@ -18,11 +18,6 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "identity_id" {
-  description = "The ID of the user assigned identity"
-  type        = string
-}
-
 variable "workspace_id" {
   description = "The ID of the Azure Monitor workspace"
   type        = string

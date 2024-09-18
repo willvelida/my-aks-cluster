@@ -6,8 +6,7 @@ resource "azurerm_dashboard_grafana" "grafana" {
   grafana_major_version = 10
 
   identity {
-    type = "UserAssigned"
-    identity_ids = [ var.identity_id ]
+    type = "SystemAssigned"
   }
 
   azure_monitor_workspace_integrations {
