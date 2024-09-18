@@ -171,5 +171,8 @@ jobs:
         with:
           name: tfplan
 
+      - name: List files after Terraform Plan
+        run: ls -la ./cluster-deployment
+
       - name: Terraform Apply
         run: terraform apply -auto-approve "./cluster-deployment/main.tfplan"
