@@ -45,6 +45,13 @@ module "monitoring_data_reader_role" {
   scope_id     = module.azure-monitor-workspace.id
 }
 
+module "grafana_admin_role" {
+  source       = "../modules/role-assignment"
+  principal_id = var.azure_object_id
+  role_name    = var.grafana_admin_role_name
+  scope_id     = module.managed-grafana.id
+}
+
 module "ssh-key" {
   source                  = "../modules/ssh-key"
   resource_group_location = module.resource-group.location

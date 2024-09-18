@@ -51,6 +51,12 @@ variable "monitoring_data_reader_role_name" {
   default     = "Monitoring Data Reader"
 }
 
+variable "grafana_admin_role_name" {
+  type        = string
+  description = "The name of the Grafana Admin role given to the user-assigned identity"
+  default     = "Grafana Admin"
+}
+
 variable "aks_name" {
   type        = string
   description = "The name of the deployed AKS cluster"
@@ -80,4 +86,9 @@ variable "azure_monitor_workspace_name" {
 variable "grafana_name" {
   type        = string
   description = "The name of the Grafana resource"
+}
+
+variable "azure_object_id" {
+  type        = string
+  description = "The Azure Object ID of the user to grant Grafana admin rights"
 }
