@@ -92,3 +92,15 @@ variable "azure_object_id" {
   type        = string
   description = "The Azure Object ID of the user to grant Grafana admin rights"
 }
+
+variable "dapr_extension_name" {
+  type        = string
+  description = "The name of the Dapr extension"
+  default     = "dapr"
+}
+
+variable "dapr_extension_type" {
+  default     = "Microsoft.Dapr"
+  type        = string
+  description = "The type of the Dapr extension"
+}

@@ -28,8 +28,7 @@ terraform {
 
 provider "azurerm" {
   features {}
-  skip_provider_registration = true
-  use_oidc                   = true
+  use_oidc = true
 }
 
 provider "azapi" {
