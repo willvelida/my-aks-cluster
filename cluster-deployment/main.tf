@@ -89,6 +89,13 @@ module "aks" {
   aks_name       = var.aks_name
 }
 
+module "dapr-extension" {
+  source         = "../modules/aks-extension"
+  extension_type = var.dapr_extension_type
+  cluster_id     = module.aks.aks_id
+  ext_name       = var.dapr_extension_name
+}
+
 module "am-dce" {
   source   = "../modules/azure-monitor-dce"
   dce_name = substr("MSProm-${module.resource-group.location}-${var.aks_name}", 0, min(44, length("MSProm-${module.resource-group.location}-${var.aks_name}")))
