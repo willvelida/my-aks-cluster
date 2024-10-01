@@ -21,7 +21,6 @@ env:
 
 jobs:
   terraform-plan:
-    if: github.event_name == 'pull_request'
     defaults:
       run:
         working-directory: ./cluster-deployment
