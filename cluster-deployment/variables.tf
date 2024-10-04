@@ -104,3 +104,15 @@ variable "dapr_extension_type" {
   type        = string
   description = "The type of the Dapr extension"
 }
+
+variable "min_count" {
+  type        = number
+  description = "The minimum number of nodes in the AKS cluster"
+  default     = 1
+}
+
+variable "max_count" {
+  type        = number
+  description = "The maximum number of nodes in the AKS cluster"
+  default     = 5
+}

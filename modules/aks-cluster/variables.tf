@@ -41,3 +41,13 @@ variable "username" {
 variable "ssh_public_key" {
   description = "The SSH public key to use for the AKS cluster"
 }
+
+variable "min_count" {
+  description = "The minimum number of nodes in the AKS cluster"
+  type = number
+}
+
+variable "max_count" {
+  description = "The maximum number of nodes in the AKS cluster"
+  type = number
+}
