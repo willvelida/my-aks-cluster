@@ -16,6 +16,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     max_count = var.max_count
   }
 
+  workload_autoscaler_profile {
+    keda_enabled = true
+  }
+
   identity {
     type = "UserAssigned"
     identity_ids = [ var.identity_ids ]
