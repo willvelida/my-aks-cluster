@@ -1,8 +1,5 @@
 name: Deploy AKS Cluster Infra
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main

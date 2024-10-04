@@ -87,6 +87,8 @@ module "aks" {
   node_count     = var.node_count
   identity_ids   = module.user_assigned_identity.user_assinged_identity_id
   aks_name       = var.aks_name
+  min_count      = var.min_count
+  max_count      = var.max_count
 }
 
 module "dapr-extension" {

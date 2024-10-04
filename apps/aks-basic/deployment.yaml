@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: contoso-website
+spec:
+  selector:
+    matchLabels:
+      app: contoso-website
+  template:
+    metadata:
+      labels:
+        app: contoso-website
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+        - name: contoso-website
+          image: mcr.microsoft.com/mslearn/samples/contoso-website
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
