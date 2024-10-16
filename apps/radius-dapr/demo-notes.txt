@@ -1,0 +1,3 @@
+Deploy app: rad run app.bicep
+
+Confirm that Dapr components have been created: dapr components -k -A

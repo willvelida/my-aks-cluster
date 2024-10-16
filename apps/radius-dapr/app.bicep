@@ -37,7 +37,7 @@ resource backend 'Applications.Core/containers@2023-10-01-preview' = {
 
 // The frontend container that serves the application UI
 resource frontend 'Applications.Core/containers@2023-10-01-preview' = {
-  name: 'frontend'
+  name: 'frontend-dapr'
   properties: {
     application: application
     container: {

@@ -49,6 +49,9 @@ resource mongodb 'Applications.Datastores/mongoDatabases@2023-10-01-preview' = {
   properties: {
     environment: environment
     application: application
+    recipe: {
+      name: 'azure'
+    }
   }
 }
 
