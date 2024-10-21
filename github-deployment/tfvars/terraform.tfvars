@@ -1,4 +1,4 @@
-gh_uai_name                = "uai-olafkfreund-github"
+gh_uai_name                = "uai-olafkfreund-github-dev"
 github_organization_target = "olafkfreund"
 container_name             = "tfstate"
 storage_account_name       = "freunddevtfstate"

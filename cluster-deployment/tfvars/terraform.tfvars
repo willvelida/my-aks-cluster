@@ -1,4 +1,4 @@
-resource_group_name = "rg-uks-dev-fcaks-rg"
+resource_group_name = "rg-uks-dev-fcaks"
 location            = "uksouth"
 tags = {
   environment = "dev"
