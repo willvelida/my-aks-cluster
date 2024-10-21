@@ -1,5 +1,5 @@
 data "azurerm_subscription" "sub" {
-
+  
 }
 
 module "tf-resource-group" {
