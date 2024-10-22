@@ -1,56 +1,56 @@
 variable "resource_group_name" {
   description = "The name of the Resource Group"
-  type = string
+  type        = string
 }
 
 variable "location" {
   description = "Where all resources will be deployed"
-  type = string
+  type        = string
 }
 
 variable "tags" {
   description = "The tags that will be applied to all resources"
-  type = map(string)
+  type        = map(string)
 }
 
 variable "workspace_name" {
   description = "The name of the Log Analytics workspace"
-  type = string
+  type        = string
 }
 
 variable "aks_cluster_name" {
   description = "The name of the AKS Automatic Cluster"
-  type = string
+  type        = string
 }
 
 variable "azure_object_id" {
   description = "The Object Id of the current user who will need Admin access to the cluster"
-  type = string
+  type        = string
 }
 
 variable "azure_monitor_workspace_name" {
   description = "The name of the Azure Monitor workspace"
-  type = string
+  type        = string
 }
 
 variable "grafana_name" {
   description = "The name of the Managed Grafana instance"
-  type = string
+  type        = string
 }
 
 variable "monitoring_data_reader_role_name" {
   description = "The name of the Monitoring Data Reader role"
-  type = string
+  type        = string
   default     = "Monitoring Data Reader"
 }
 
 variable "grafana_admin_role_name" {
   description = "The name of the Grafana Admin role"
-  type = string
+  type        = string
   default     = "Grafana Admin"
 }
 
 variable "azure_object_id" {
   description = "The Object Id of the current user who will need Admin access to the cluster"
-  type = string
+  type        = string
 }
