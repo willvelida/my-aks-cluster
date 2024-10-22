@@ -49,8 +49,3 @@ variable "grafana_admin_role_name" {
   type        = string
   default     = "Grafana Admin"
 }
-
-variable "azure_object_id" {
-  description = "The Object Id of the current user who will need Admin access to the cluster"
-  type        = string
-}
