@@ -3,10 +3,10 @@ resource "azapi_resource" "aks" {
   parent_id = var.resource_group_id
   location = var.location
   name = var.aks_cluster_name
-  tags = var.tags
   schema_validation_enabled = false
 
-  body = jsonencode({
+  body = {
+    tags = var.tags
     identity = {
         type = "SystemAssigned"
     },
@@ -47,7 +47,7 @@ resource "azapi_resource" "aks" {
         name = "Automatic"
         tier = "Standard"
     }
-  })
+  }
 
   response_export_values = [
     "properties.identityProfile.kubeletidentity.objectId",
