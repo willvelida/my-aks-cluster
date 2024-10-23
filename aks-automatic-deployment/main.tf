@@ -7,17 +7,17 @@ module "resource-group" {
 
 module "law" {
   source              = "../modules/log-analytics"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  tags                = azurerm_resource_group.rg.tags
+  location            = module.resource-group.location
+  resource_group_name = module.resource-group.name
+  tags                = var.tags
   workspace_name      = var.workspace_name
 }
 
 module "aks_automatic" {
   source                     = "../modules/aks-automatic-cluster"
-  location                   = azurerm_resource_group.rg.location
-  resource_group_id          = azurerm_resource_group.rg.id
-  tags                       = azurerm_resource_group.rg.tags
+  location                   = module.resource-group.location
+  resource_group_id          = module.resource-group.id
+  tags                       = var.tags
   log_analytics_workspace_id = module.law.resource_id
   aks_cluster_name           = var.aks_cluster_name
   current_object_id          = var.azure_object_id
