@@ -56,14 +56,14 @@ module "am-dcr" {
   prometheus_id   = module.azure-monitor-workspace.id
   prometheus_name = module.azure-monitor-workspace.name
   dcra_name       = "dcra-dcr-prometheus-aks"
-  cluster_id      = module.aks.aks_id
+  cluster_id      = module.aks_automatic.cluster_id
 }
 
 module "rule-groups" {
   source       = "../modules/azure-monitor-alert-prometheus-rule-group"
   rg_name      = module.resource-group.name
   location     = module.resource-group.location
-  cluster_id   = module.aks.aks_id
+  cluster_id   = module.aks_automatic.cluster_id
   cluster_name = module.aks_automatic.cluster_name
   workspace_id = module.azure-monitor-workspace.id
 }
