@@ -1,12 +1,12 @@
-resource_group_name = "rg-velidaaksautomatic"
+resource_group_name = "rg-wvaksauto"
 location = "australiaeast"
 tags = {
     environment = "dev"
     owner = "willvelida"
-    application = "velidaaksautomatic"
+    application = "wvaksauto"
 }
-workspace_name = "dev-law-velidaaksautomatic"
-aks_cluster_name = "dev-velidaaksautomatic"
+workspace_name = "dev-law-wvaksauto"
+aks_cluster_name = "dev-wvaksauto"
 azure_object_id = ""
-azure_monitor_workspace_name = "dev-amw-velidaaksautomatic"
-grafana_name = "dev-grafana-velidaaksautomatic"
+azure_monitor_workspace_name = "dev-amw-wvaksauto"
+grafana_name = "dev-grafana-wvaksauto"
