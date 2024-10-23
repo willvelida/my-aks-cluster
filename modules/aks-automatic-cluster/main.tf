@@ -14,8 +14,8 @@ resource "azapi_resource" "aks" {
       agentPoolProfiles = [
         {
           name   = "systempool"
-          count  = 3
-          vmSize = "Standard_D2s_v3"
+          count  = 1
+          vmSize = "Standard_DS4_v2"
           osType = "Linux"
           mode   = "System"
         }
