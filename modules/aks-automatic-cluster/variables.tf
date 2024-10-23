@@ -1,26 +1,26 @@
 variable "resource_group_id" {
   description = "The resource id of the resource group"
-  type = string
+  type        = string
 }
 
 variable "location" {
   description = "The region to deploy the AKS Automatic Cluster"
-  type = string
+  type        = string
 }
 
 variable "aks_cluster_name" {
   description = "The name of the AKS Automatic Cluster"
-  type = string
+  type        = string
 }
 
 variable "tags" {
   description = "The tags that will be applied to the AKS Automatic Cluster"
-  type = map(string)
+  type        = map(string)
 }
 
 variable "log_analytics_workspace_id" {
   description = "The resource id of the Log Analytics workspace that this cluster will use"
-  type = string
+  type        = string
 }
 
 variable "current_object_id" {
