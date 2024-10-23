@@ -64,3 +64,8 @@ variable "owner_role_name" {
   default     = "Owner"
   description = "The name of the Owner role given to the user-assigned identity"
 }
+
+variable "automatic_container_name" {
+  type = string
+  description = "The name of the storage container for AKS automatic"
+}

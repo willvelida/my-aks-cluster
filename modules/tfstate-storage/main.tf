@@ -13,3 +13,8 @@ resource "azurerm_storage_container" "container" {
   container_access_type = "private"
 }
 
+resource "azurerm_storage_container" "automatic_container" {
+  name = var.automatic_container_name
+  storage_account_name = azurerm_storage_account.account.name
+  container_access_type = "private"
+}

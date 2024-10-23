@@ -32,3 +32,8 @@ variable "tags" {
   type = map(string)
   description = "A mapping of tags to assign to the resource"
 }
+
+variable "automatic_container_name" {
+  type = string
+  description = "The name of the storage container for AKS automatic"
+}
