@@ -25,6 +25,7 @@ module "tf-state-storage" {
   account_replication_type = var.account_replication_type
   account_tier             = var.account_tier
   container_name           = var.container_name
+  automatic_container_name = var.automatic_container_name
 }
 
 module "gh_usi" {
