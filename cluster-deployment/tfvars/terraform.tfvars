@@ -4,6 +4,7 @@ tags = {
   environment = "dev"
   owner = "willvelida"
   application = "velidaaks"
+  location = "australiaeast"
 }
 user_assigned_identity_name = "dev-uai-velidaaks"
 acr_name = "devacrvelidaaks"
