@@ -10,7 +10,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     name = "default"
     node_count = var.node_count
     vm_size = var.vm_size
+    enable_auto_scaling = true
     type = "VirtualMachineScaleSets"
+    
     min_count = var.min_count
     max_count = var.max_count
   }
