@@ -17,6 +17,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     max_count = var.max_count
   }
 
+  oidc_issuer_enabled = true
+  workload_identity_enabled = true
+
   workload_autoscaler_profile {
     keda_enabled = true
   }
