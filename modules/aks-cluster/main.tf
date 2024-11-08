@@ -17,6 +17,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     max_count = var.max_count
   }
 
+  azure_policy_enabled = var.enable_azure_policy
   oidc_issuer_enabled = true
   workload_identity_enabled = true
 

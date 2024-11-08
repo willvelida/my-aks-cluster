@@ -13,3 +13,4 @@ aks_username = "willvelida"
 aks_name = "dev-velidaaks"
 azure_monitor_workspace_name = "dev-amw-velidaaks"
 grafana_name = "dev-grafana-velidaaks"
+enable_azure_policy = true
