@@ -126,3 +126,10 @@ module "rule-groups" {
   cluster_name = var.aks_name
   workspace_id = module.azure-monitor-workspace.id
 }
+
+# Azure Policies to apply to our AKS cluster
+resource "azurerm_resource_policy_assignment" "linuxbaseline" {
+  name                 = "enforce-aks-pod-baseline-linux"
+  resource_id          = module.aks.aks_id
+  policy_definition_id = "/providers/Microsoft.Authorization/policySetDefinitions/a8640138-9b0a-4a28-b8cb-1666c838647d"
+}
