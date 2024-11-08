@@ -51,3 +51,8 @@ variable "max_count" {
   description = "The maximum number of nodes in the AKS cluster"
   type = number
 }
+
+variable "enable_azure_policy" {
+  description = "Should Azure Policy be enabled for this cluster?"
+  type = bool
+}

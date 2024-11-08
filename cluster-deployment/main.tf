@@ -89,6 +89,7 @@ module "aks" {
   aks_name       = var.aks_name
   min_count      = var.min_count
   max_count      = var.max_count
+  enable_azure_policy = var.enable_azure_policy
 }
 
 module "dapr-extension" {
