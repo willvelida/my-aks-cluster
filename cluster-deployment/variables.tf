@@ -116,3 +116,8 @@ variable "max_count" {
   description = "The maximum number of nodes in the AKS cluster"
   default     = 5
 }
+
+variable "enable_azure_policy" {
+  description = "Should Azure Policy be enabled for this cluster?"
+  type        = bool
+}
