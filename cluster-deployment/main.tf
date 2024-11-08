@@ -132,4 +132,10 @@ resource "azurerm_resource_policy_assignment" "linuxbaseline" {
   name                 = "enforce-aks-pod-baseline-linux"
   resource_id          = module.aks.aks_id
   policy_definition_id = "/providers/Microsoft.Authorization/policySetDefinitions/a8640138-9b0a-4a28-b8cb-1666c838647d"
+
+  parameters = jsondecode({
+    effect = {
+      value = "Deny"
+    }
+  })
 }
