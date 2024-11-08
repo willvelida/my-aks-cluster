@@ -77,18 +77,18 @@ module "managed-grafana" {
 }
 
 module "aks" {
-  source         = "../modules/aks-cluster"
-  rg_name        = module.resource-group.name
-  location       = module.resource-group.location
-  tags           = var.tags
-  username       = var.aks_username
-  ssh_public_key = module.ssh-key.key_data
-  vm_size        = var.vm_size
-  node_count     = var.node_count
-  identity_ids   = module.user_assigned_identity.user_assinged_identity_id
-  aks_name       = var.aks_name
-  min_count      = var.min_count
-  max_count      = var.max_count
+  source              = "../modules/aks-cluster"
+  rg_name             = module.resource-group.name
+  location            = module.resource-group.location
+  tags                = var.tags
+  username            = var.aks_username
+  ssh_public_key      = module.ssh-key.key_data
+  vm_size             = var.vm_size
+  node_count          = var.node_count
+  identity_ids        = module.user_assigned_identity.user_assinged_identity_id
+  aks_name            = var.aks_name
+  min_count           = var.min_count
+  max_count           = var.max_count
   enable_azure_policy = var.enable_azure_policy
 }
 
