@@ -38,3 +38,9 @@ terraform.rc
 
 # Ignore tfplan files
 *.tfplan
+
+# Ignore node modules
+node_modules
+
+# Ignore any .dockerfile
+.dockerfile
