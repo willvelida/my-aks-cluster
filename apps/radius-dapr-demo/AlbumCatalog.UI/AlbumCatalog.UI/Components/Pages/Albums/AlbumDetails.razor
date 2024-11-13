@@ -1,0 +1,56 @@
+﻿@page "/albums/details/{Id}"
+@using AlbumCatalog.UI.Components.Pages.Albums.Models
+@inject Dapr.Client.DaprClient daprClient
+@inject NavigationManager NavigationManager
+<PageTitle>Album Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    @if (Album is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <dl class="row">
+            <dt>Title</dt>
+            <dd>@Album.Title</dd>
+            <dt>Artist</dt>
+            <dd>@Album.Artist</dd>
+            <dt>Release Date</dt>
+            <dd>@Album.ReleaseDate</dd>
+            <dt>Genre</dt>
+            <dd>@Album.Genre</dd>
+        </dl>
+        <div>
+            <a href="@($"/albums/edit/{Album.Id}")">Edit</a>
+            <a href="@($"/albums/delete/{Album.Id}")">Delete</a>
+            <a href="/">Back to list</a>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string? Id { get; set; }
+
+    private Album Album;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id is not null)
+        {
+            Album = await daprClient.InvokeMethodAsync<Album>(HttpMethod.Get, "album-catalog-api", $"api/album/{Id}");
+
+            if (Album is null)
+            {
+                NavigationManager.NavigateTo("/error");
+            }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/error");
+        }
+    }
+}
