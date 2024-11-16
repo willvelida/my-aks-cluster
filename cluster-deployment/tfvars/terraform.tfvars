@@ -6,6 +6,7 @@ tags = {
   application = "velidaaks"
   location = "australiaeast"
   sub = "MVP-sub"
+  type = "POC"
 }
 user_assigned_identity_name = "prod-uai-velidaaks"
 acr_name = "prodacrvelidaaks"
