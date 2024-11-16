@@ -66,6 +66,6 @@ variable "owner_role_name" {
 }
 
 variable "automatic_container_name" {
-  type = string
+  type        = string
   description = "The name of the storage container for AKS automatic"
 }

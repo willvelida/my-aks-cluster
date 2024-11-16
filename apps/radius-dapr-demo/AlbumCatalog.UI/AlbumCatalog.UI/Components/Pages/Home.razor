@@ -1,6 +1,6 @@
 ﻿@page "/"
 @using AlbumCatalog.UI.Components.Pages.Albums.Models
-@inject Dapr.Client.DaprClient daprClient
+@inject HttpClient Client
 
 <PageTitle>Album Catalog</PageTitle>
 
@@ -45,10 +45,10 @@ else
 
 @code {
 
-    private List<Album> albums;
+    private List<Album> albums = new List<Album>();
 
     protected override async Task OnInitializedAsync()
     {
-        albums = await daprClient.InvokeMethodAsync<List<Album>>(HttpMethod.Get, "album-catalog-api", "api/album");
+        albums = await Client.GetFromJsonAsync<List<Album>>("api/album");
     }
 }

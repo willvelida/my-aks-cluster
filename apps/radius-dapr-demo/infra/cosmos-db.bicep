@@ -17,10 +17,10 @@ param tags object = {
 param throughput int = 400
 
 @description('The name of the Database')
-param databaseName string = 'OrderDB'
+param databaseName string = 'AlbumDB'
 
 @description('The name of the Container')
-param containerName string = 'orders'
+param containerName string = 'albums'
 
 resource account 'Microsoft.DocumentDB/databaseAccounts@2024-09-01-preview' = {
   name: accountName
@@ -78,6 +78,15 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
     }
   }
 }
+
+@description('The Id of the account')
+output accountId string = account.id
+
+@description('The Id of the Database')
+output databaseId string = database.id
+
+@description('The Id of the Container')
+output containerId string = container.id
 
 @description('The url for the created account')
 output accountUrl string = account.properties.documentEndpoint

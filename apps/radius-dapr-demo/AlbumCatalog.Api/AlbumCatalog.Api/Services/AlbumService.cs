@@ -1,18 +1,22 @@
 ﻿using AlbumCatalog.Api.Models;
+using Azure.Data.Tables;
 using Dapr.Client;
+using System.Text.Json;
 
 namespace AlbumCatalog.Api.Services
 {
     public class AlbumService : IAlbumService
     {
-        private static string STORE_NAME = "album-state-store";
+        private static string STORE_NAME = "albums";
         private readonly DaprClient _daprClient;
+        private readonly TableClient _tableClient;
         private readonly IConfiguration _config;
         private readonly ILogger<AlbumService> _logger;
 
-        public AlbumService(DaprClient daprClient, IConfiguration config, ILogger<AlbumService> logger)
+        public AlbumService(DaprClient daprClient, TableClient tableClient, IConfiguration config, ILogger<AlbumService> logger)
         {
             _daprClient = daprClient;
+            _tableClient = tableClient;
             _config = config;
             _logger = logger;
         }
@@ -47,18 +51,6 @@ namespace AlbumCatalog.Api.Services
             return album;
         }
 
-        public async Task<List<Album>> GetAlbumsAsync()
-        {
-            var query = "{\"filter\": {}}";
-            var queryResponse = await _daprClient.QueryStateAsync<Album>(STORE_NAME, query);
-            var albumList = queryResponse.Results
-                .Where(x => x.Data != null)
-                .Select(x => x.Data!)
-                .OrderByDescending(x => x.ReleaseDate);
-
-            return albumList.ToList();
-        }
-
         public async Task<AlbumDto> UpdateAlbumAsync(string id, AlbumDto album)
         {
             var existingAlbum = await _daprClient.GetStateAsync<Album>(STORE_NAME, id.ToString());
@@ -68,6 +60,25 @@ namespace AlbumCatalog.Api.Services
             existingAlbum.Genre = album.Genre;
             await _daprClient.SaveStateAsync<Album>(STORE_NAME, id.ToString(), existingAlbum);
             return album;
+        }
+
+        public async Task<List<Album>> GetAlbumsAsync()
+        {
+            var albumEntities = new List<AlbumEntity>();
+            var albums = new List<Album>();
+
+            await foreach (var entity in _tableClient.QueryAsync<AlbumEntity>())
+            {
+                albumEntities.Add(entity);
+            }
+
+            foreach (var album in albumEntities)
+            {
+                var entry = JsonSerializer.Deserialize<Album>(album.Value);
+                albums.Add(entry);
+            }
+
+            return albums;
         }
     }
 }
