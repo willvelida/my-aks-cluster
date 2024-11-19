@@ -6,16 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddDaprClient();
-builder.Services.AddSingleton<TableServiceClient>(sp =>
-{
-    return new TableServiceClient("<TableConnectionString>");
-});
 
-builder.Services.AddSingleton<TableClient>(sp =>
-{
-    var tableServiceClient = sp.GetRequiredService<TableServiceClient>();
-    return tableServiceClient.GetTableClient("<TableName>");
-});
+//builder.Services.AddSingleton<TableServiceClient>(sp =>
+//{
+//    return new TableServiceClient("<TableConnectionString>");
+//});
+
+//builder.Services.AddSingleton<TableClient>(sp =>
+//{
+//    var tableServiceClient = sp.GetRequiredService<TableServiceClient>();
+//    return tableServiceClient.GetTableClient("<TableName>");
+//});
 
 builder.Services.AddSingleton<IAlbumService, AlbumService>();
 builder.Services.AddControllers();

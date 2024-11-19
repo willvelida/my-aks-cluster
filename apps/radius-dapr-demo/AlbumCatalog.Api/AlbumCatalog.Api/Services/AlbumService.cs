@@ -9,14 +9,14 @@ namespace AlbumCatalog.Api.Services
     {
         private static string STORE_NAME = "albums";
         private readonly DaprClient _daprClient;
-        private readonly TableClient _tableClient;
+        // private readonly TableClient _tableClient;
         private readonly IConfiguration _config;
         private readonly ILogger<AlbumService> _logger;
 
-        public AlbumService(DaprClient daprClient, TableClient tableClient, IConfiguration config, ILogger<AlbumService> logger)
+        public AlbumService(DaprClient daprClient, IConfiguration config, ILogger<AlbumService> logger)
         {
             _daprClient = daprClient;
-            _tableClient = tableClient;
+            // _tableClient = tableClient;
             _config = config;
             _logger = logger;
         }
@@ -64,21 +64,34 @@ namespace AlbumCatalog.Api.Services
 
         public async Task<List<Album>> GetAlbumsAsync()
         {
-            var albumEntities = new List<AlbumEntity>();
-            var albums = new List<Album>();
+            var query = "{\"filter\": {}}";
+            var queryResponse = await _daprClient.QueryStateAsync<Album>(STORE_NAME, query);
+            var albumList = queryResponse.Results
+                .Where(x => x.Data != null)
+                .Select(x => x.Data!)
+                .OrderByDescending(x => x.ReleaseDate);
 
-            await foreach (var entity in _tableClient.QueryAsync<AlbumEntity>())
-            {
-                albumEntities.Add(entity);
-            }
-
-            foreach (var album in albumEntities)
-            {
-                var entry = JsonSerializer.Deserialize<Album>(album.Value);
-                albums.Add(entry);
-            }
-
-            return albums;
+            return albumList.ToList();
         }
+
+        // GetAlbumsAsync method using TableClient
+        //public async Task<List<Album>> GetAlbumsAsync()
+        //{
+        //    var albumEntities = new List<AlbumEntity>();
+        //    var albums = new List<Album>();
+
+        //    await foreach (var entity in _tableClient.QueryAsync<AlbumEntity>())
+        //    {
+        //        albumEntities.Add(entity);
+        //    }
+
+        //    foreach (var album in albumEntities)
+        //    {
+        //        var entry = JsonSerializer.Deserialize<Album>(album.Value);
+        //        albums.Add(entry);
+        //    }
+
+        //    return albums;
+        //}
     }
 }

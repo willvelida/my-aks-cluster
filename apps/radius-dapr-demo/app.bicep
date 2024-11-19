@@ -6,13 +6,13 @@ param application string
 @description('The Radius Environment name. Injected automatically by the rad CLI.')
 param environment string
 
-@description('The name of the Cosmos DB account')
+@description('The name of the Azure Table account')
 param accountName string = 'store${uniqueString(resourceGroup().id)}'
 
-@description('The location where the Cosmos DB account will be created')
+@description('The location where the Azure Table account will be created')
 param location string = resourceGroup().location
 
-@description('The tags that will be applied to the Cosmos DB account')
+@description('The tags that will be applied to the Azure Table account')
 param tags object = {
   Demo: 'MSIgnite-2024'
   Author: 'willvelida'

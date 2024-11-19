@@ -1,7 +1,7 @@
 apiVersion: dapr.io/v1alpha1
 kind: Component
 metadata:
-  name: album-state-store
+  name: albums
   namespace: default
 spec:
   type: state.mongodb
