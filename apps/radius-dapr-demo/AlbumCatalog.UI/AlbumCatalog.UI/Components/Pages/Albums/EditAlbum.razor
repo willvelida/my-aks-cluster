@@ -1,0 +1,83 @@
+﻿@page "/albums/edit/{Id}"
+@using AlbumCatalog.UI.Components.Pages.Albums.Models
+@inject Dapr.Client.DaprClient daprClient
+@inject NavigationManager NavigationManager
+<PageTitle>Edit Album</PageTitle>
+
+<h1>Edit Album</h1>
+
+@if (Album is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Album" OnValidSubmit="UpdateAlbum" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary class="text-danger" />
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <InputText id="title" class="form-control" @bind-Value="Album.Title" />
+                    <ValidationMessage For="@(() => Album.Title)" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="artist" class="form-label">Artist</label>
+                    <InputText id="artist" class="form-control" @bind-Value="Album.Artist" />
+                    <ValidationMessage For="@(() => Album.Artist)" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="releaseDate" class="form-label">Release Date</label>
+                    <InputDate id="releaseDate" class="form-control" @bind-Value="Album.ReleaseDate" />
+                    <ValidationMessage For="@(() => Album.ReleaseDate)" />
+                </div>
+                <div class="mb-3">
+                    <label for="genre" class="form-label">Genre</label>
+                    <InputText id="genre" class="form-control" @bind-Value="Album.Genre" />
+                    <ValidationMessage For="@(() => Album.Genre)" />
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/">Back to list</a>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private Album? Album { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id is not null)
+        {
+            Album = await daprClient.InvokeMethodAsync<Album>(HttpMethod.Get, "album-catalog-api", $"api/album/{Id}");
+
+            if (Album is null)
+            {
+                NavigationManager.NavigateTo("/error");
+            }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/error");
+        }
+    }
+
+    private async Task UpdateAlbum()
+    {
+        Console.WriteLine($"Attempting to update: {Album.Title}");
+        await daprClient.InvokeMethodAsync(HttpMethod.Put, "album-catalog-api", $"api/album/{Id}", Album);
+        NavigationManager.NavigateTo("/");
+    }
+}

@@ -1,0 +1,54 @@
+﻿@page "/"
+@using AlbumCatalog.UI.Components.Pages.Albums.Models
+@inject Dapr.Client.DaprClient daprClient
+
+<PageTitle>Album Catalog</PageTitle>
+
+<h1>Album List</h1>
+
+<div>
+    <a href="albums/create">Create</a>
+</div>
+
+@if (albums == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Release Date</th>
+                <th>Genre</th>
+                <th>Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var album in albums)
+            {
+                <tr>
+                    <td>@album.Title</td>
+                    <td>@album.Artist</td>
+                    <td>@album.ReleaseDate</td>
+                    <td>@album.Genre</td>
+                    <td>
+                        <a href="@($"/albums/details/{album.Id}")">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<Album> albums = new List<Album>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        albums = await daprClient.InvokeMethodAsync<List<Album>>(HttpMethod.Get, "album-catalog-api", "api/album");
+    }
+}

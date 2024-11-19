@@ -1,0 +1,62 @@
+﻿@page "/albums/delete/{Id}"
+@using AlbumCatalog.UI.Components.Pages.Albums.Models
+@inject Dapr.Client.DaprClient daprClient
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete Album</PageTitle>
+
+<h1>Are you sure you want to delete this album?</h1>
+
+<div>
+    @if (Album is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <dl class="row">
+            <dt>Title</dt>
+            <dd>@Album.Title</dd>
+            <dt>Artist</dt>
+            <dd>@Album.Artist</dd>
+            <dt>Release Date</dt>
+            <dd>@Album.ReleaseDate</dd>
+            <dt>Genre</dt>
+            <dd>@Album.Genre</dd>
+        </dl>
+        <EditForm method="post" Model="Album" OnValidSubmit="RemoveAlbum" FormName="delete" Enhance>
+            <button class="btn btn-danger" type="submit" disabled="@(Album is null)">Delete</button>
+            <a href="/">Cancel</a>
+        </EditForm>    
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Id {get; set; }
+
+    private Album Album;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id is not null)
+        {
+            Album = await daprClient.InvokeMethodAsync<Album>(HttpMethod.Get, "album-catalog-api", $"api/album/{Id}");
+
+            if (Album is null)
+            {
+                NavigationManager.NavigateTo("/error");
+            }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/error");
+        }
+    }
+
+    private async Task RemoveAlbum()
+    {
+        await daprClient.InvokeMethodAsync(HttpMethod.Delete, "album-catalog-api", $"api/album/{Id}");
+        NavigationManager.NavigateTo("/");
+    }
+}

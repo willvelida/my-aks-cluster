@@ -1,0 +1,61 @@
+﻿@page "/albums/create"
+@using AlbumCatalog.UI.Components.Pages.Albums.Models
+@using Dapr.Client
+@inject Dapr.Client.DaprClient daprClient
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create Album</PageTitle>
+
+<h3>Create new album</h3>
+
+<p>What do you want to listen to?</p>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="album" OnValidSubmit="AddAlbum" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger"/>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <InputText id="title" class="form-control" @bind-Value="album.Title" />
+                <ValidationMessage For="@(() => album.Title)" />
+            </div>
+            <div class="mb-3">
+                <label for="artist" class="form-label">Artist</label>
+                <InputText id="artist" class="form-control" @bind-Value="album.Artist" />
+                <ValidationMessage For="@(() => album.Artist)" />
+            </div>
+            <div class="mb-3">
+                <label for="releaseDate" class="form-label">Release Date</label>
+                <InputDate id="releaseDate" class="form-control" @bind-Value="album.ReleaseDate" />
+                <ValidationMessage For="@(() => album.ReleaseDate)" />
+            </div>
+            <div class="mb-3">
+                <label for="genre" class="form-label">Genre</label>
+                <InputText id="genre" class="form-control" @bind-Value="album.Genre" />
+                <ValidationMessage For="@(() => album.Genre)" />
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    [SupplyParameterFromForm]
+    private AlbumDto album { get; set; } = new AlbumDto();
+
+    private async Task AddAlbum()
+    {
+        try
+        {
+            await daprClient.InvokeMethodAsync(HttpMethod.Post, "album-catalog-api", $"api/album", album);
+            NavigationManager.NavigateTo("/");
+        }
+        catch (InvocationException ex)
+        {
+            // Log the exception or show a message to the user
+            Console.WriteLine($"Error invoking method: {ex.Message}");
+        }
+    }
+}
