@@ -1,8 +1,8 @@
 resource_group_name = "rg-wvaksauto"
-location = "australiaeast"
+location = "eastus"
 tags = {
     environment = "dev"
-    owner = "willvelida"
+    owner = "devs108"
     application = "wvaksauto"
 }
 workspace_name = "dev-law-wvaksauto"
