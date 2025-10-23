@@ -1,10 +1,10 @@
 resource_group_name = "rg-velidaaks"
-location = "australiaeast"
+location = "uksouth"
 tags = {
   environment = "prod"
   owner = "willvelida"
   application = "velidaaks"
-  location = "australiaeast"
+  location = "uksouth"
   type = "k8s-lab"
 }
 user_assigned_identity_name = "prod-uai-velidaaks"

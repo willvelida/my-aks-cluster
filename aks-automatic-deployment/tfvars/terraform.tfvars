@@ -1,5 +1,5 @@
 resource_group_name = "rg-wvaksauto"
-location = "australiaeast"
+location = "uksouth"
 tags = {
     environment = "dev"
     owner = "willvelida"
