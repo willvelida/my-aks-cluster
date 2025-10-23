@@ -5,6 +5,7 @@ module "resource-group" {
   tags     = var.tags
 }
 
+# Create User Assigned Managed Identity
 module "user_assigned_identity" {
   source   = "../modules/user-assigned-identity"
   name     = var.user_assigned_identity_name

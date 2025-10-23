@@ -27,7 +27,7 @@ variable "github_organization_target" {
 
 variable "github_repository" {
   type        = string
-  default     = "my-aks-cluster"
+  default     = "aks-gha-tf"
   description = "The name of the GitHub repository to target"
 }
 

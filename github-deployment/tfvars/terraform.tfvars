@@ -7,6 +7,6 @@ tf_state_rg_name = "rg-devtfstate"
 identity_rg_name = "rg-devidentity"
 location = "eastus"
 tags = {
-  environment = "prod"
+  environment = "dev"
   owner = "devs108"
 }
